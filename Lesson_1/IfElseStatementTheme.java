@@ -32,7 +32,6 @@ class IfElseStatementTheme {
             System.out.println("Имя не начинается с букв M и I");
         }
 
-
         System.out.println("\n2. Поиск max и min числа");
         int num1 = 10;
         int num2 = 20;
@@ -44,7 +43,6 @@ class IfElseStatementTheme {
         } else {
             System.out.println("Число: " + num1 + " равно числу " + num2);
         }
-
 
         System.out.println("\n3. Проверка числа");
         int num = 142;
@@ -66,7 +64,6 @@ class IfElseStatementTheme {
         } else {
             System.out.println("Число равно нулю");
         }
-
 
         System.out.println("\n4. Поиск одинаковых цифр в числах");
         num1 = 318;
@@ -93,7 +90,6 @@ class IfElseStatementTheme {
             System.out.println("Одинаковые цифры отсутствуют");
         }
 
-
         System.out.println("\n5. Определение символа по его коду");
         char symbol = '\u0057';
 
@@ -106,7 +102,6 @@ class IfElseStatementTheme {
         } else {
             System.out.println("Это не буква и не число");
         }
-
 
         System.out.println("\n6. Подсчет суммы вклада и начисленных банком %");
         int deposit = 300000;
@@ -122,7 +117,6 @@ class IfElseStatementTheme {
             System.out.println("Начисленный %: " + deposit * 0.1);
             System.out.println("Итоговая сумма с %: " + (deposit + deposit * 0.1));
         }
-
 
         System.out.println("\n7. Определение оценки по предметам");
         double historyPercent = 0.59;
@@ -157,7 +151,6 @@ class IfElseStatementTheme {
         System.out.println("Средний процент по предметам: " + ((historyPercent 
                 + programmingPercent) / 2));
 
-
         System.out.println("\n8. Расчет прибыли за год");
         int rentPrice = 5000;
         int salesProfit = 13000;
@@ -169,7 +162,6 @@ class IfElseStatementTheme {
         } else {
             System.out.println("Прибыль за год: " + profitForYear);
         }
-
 
         System.out.println("\n9. Подсчет количества банкнот");
         int moneyToWithdraw = 567;
