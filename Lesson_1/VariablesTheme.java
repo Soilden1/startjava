@@ -86,15 +86,15 @@ class VariablesTheme {
         char circumflex = '^';
         char underscore = '_';
 
-        System.out.println("Код символа: " + (byte) lattice + "; Соответствующий символ: " 
-                + lattice);
-        System.out.println("Код символа: " + (byte) ampersand + "; Соответствующий символ: " 
-                + ampersand);
+        System.out.println("Код символа: " + (byte) lattice + 
+                "; Соответствующий символ: " + lattice);
+        System.out.println("Код символа: " + (byte) ampersand + 
+                "; Соответствующий символ: " + ampersand);
         System.out.println("Код символа: " + (byte) at + "; Соответствующий символ: " + at);
-        System.out.println("Код символа: " + (byte) circumflex + "; Соответствующий символ: " 
-                + circumflex);
-        System.out.println("Код символа: " + (byte) underscore + "; Соответствующий символ: " 
-                + underscore);
+        System.out.println("Код символа: " + (byte) circumflex + 
+                "; Соответствующий символ: " + circumflex);
+        System.out.println("Код символа: " + (byte) underscore + 
+                "; Соответствующий символ: " + underscore);
 
         System.out.println("\n7. Вывод в консоль ASCII-арт Дюка");
         char slash = '/';
@@ -105,24 +105,23 @@ class VariablesTheme {
 
         System.out.println("    " + slash + backslash);
         System.out.println("   " + slash + "  " + backslash);
-        System.out.println("  " + slash + underline + leftParentheses + " " + rightParentheses
-                + backslash);
+        System.out.println("  " + slash + underline + leftParentheses + " " + rightParentheses + backslash);
         System.out.println(" " + slash + "      " + backslash);
-        System.out.println("" + slash + underline + underline + underline + underline + slash + backslash
-                + underline  + underline + backslash);
+        System.out.println("" + slash + underline + underline + underline + underline + slash + backslash + 
+                underline  + underline + backslash);
 
         System.out.println("\n8. Вывод количества сотен, десятков и единиц числа");
         int num = 123;
         int hundreds = num / 100;
         int tens = (num / 10) % 10;
-        int units = num % 10;
-        int sumDigits = hundreds + tens + units;
-        int productDigits = hundreds * tens * units;
+        int ones = num % 10;
+        int sumDigits = hundreds + tens + ones;
+        int productDigits = hundreds * tens * ones;
 
         System.out.println("Число " + num + " содержит: ");
         System.out.println("    " + hundreds + " сотен");
         System.out.println("    " + tens + " десятков");
-        System.out.println("    " + units + " единиц");
+        System.out.println("    " + ones + " единиц");
         System.out.println("Сумма его цифр = " + sumDigits);
         System.out.println("Произведение = " + productDigits);
 
