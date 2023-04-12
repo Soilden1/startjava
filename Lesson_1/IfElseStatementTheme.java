@@ -167,6 +167,7 @@ class IfElseStatementTheme {
         int issuedBanknotes100 = 0;
         int issuedBanknotes10 = 0;
         int issuedBanknotes1 = 0;
+        int hundredsToWithdraw = moneyToWithdraw / 100;
         int tensToWithdraw = moneyToWithdraw % 100 / 10;
         int onesToWithdraw = moneyToWithdraw % 10;
         int sumBanknotes10 = countBanknotes10 * 10;
@@ -178,26 +179,27 @@ class IfElseStatementTheme {
         if (isNotEnoughFunds || isNotEnoughOnes) {
             System.out.println("В банкомате недостаточно средств");
         } else {
-            if (moneyToWithdraw >= 100 && moneyToWithdraw / 100 <= countBanknotes100) {
-                issuedBanknotes100 = moneyToWithdraw / 100;
+            if (hundredsToWithdraw <= countBanknotes100) {
+                issuedBanknotes100 = hundredsToWithdraw;
                 moneyToWithdraw -= issuedBanknotes100 * 100;
-            } else if (moneyToWithdraw >= 100 && moneyToWithdraw / 100 > countBanknotes100) {
+            } else if (hundredsToWithdraw > countBanknotes100) {
                 issuedBanknotes100 = countBanknotes100;
                 moneyToWithdraw -= sumBanknotes100;
             }
 
-            if (moneyToWithdraw >= 10 && moneyToWithdraw / 10 <= countBanknotes10) {
-                issuedBanknotes10 = moneyToWithdraw / 10;
+            tensToWithdraw = moneyToWithdraw / 10;
+            if (tensToWithdraw <= countBanknotes10) {
+                issuedBanknotes10 = tensToWithdraw;
                 moneyToWithdraw -= issuedBanknotes10 * 10;
-            } else if (moneyToWithdraw >= 10 && moneyToWithdraw / 10 > countBanknotes10) {
+            } else if (tensToWithdraw > countBanknotes10) {
                 issuedBanknotes10 = countBanknotes10;
                 moneyToWithdraw -= sumBanknotes10;
             }
 
-            if (moneyToWithdraw >= 1 && moneyToWithdraw / 1 <= countBanknotes1) {
-                issuedBanknotes1 = moneyToWithdraw / 1;
-                moneyToWithdraw -= issuedBanknotes1 * 1;
-            } else if (moneyToWithdraw >= 1 && moneyToWithdraw / 1 > countBanknotes1) {
+            if (moneyToWithdraw <= countBanknotes1) {
+                issuedBanknotes1 = moneyToWithdraw;
+                moneyToWithdraw -= issuedBanknotes1;
+            } else if (moneyToWithdraw > countBanknotes1) {
                 issuedBanknotes1 = countBanknotes1;
                 moneyToWithdraw -= countBanknotes1;
             }
