@@ -167,7 +167,6 @@ class IfElseStatementTheme {
         int issuedBanknotes100 = 0;
         int issuedBanknotes10 = 0;
         int issuedBanknotes1 = 0;
-        int hundredsToWithdraw = moneyToWithdraw / 100;
         int tensToWithdraw = moneyToWithdraw % 100 / 10;
         int onesToWithdraw = moneyToWithdraw % 10;
         int sumBanknotes10 = countBanknotes10 * 10;
@@ -179,6 +178,7 @@ class IfElseStatementTheme {
         if (isNotEnoughFunds || isNotEnoughOnes) {
             System.out.println("В банкомате недостаточно средств");
         } else {
+            int hundredsToWithdraw = moneyToWithdraw / 100;
             if (hundredsToWithdraw <= countBanknotes100) {
                 issuedBanknotes100 = hundredsToWithdraw;
                 moneyToWithdraw -= issuedBanknotes100 * 100;
