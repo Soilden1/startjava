@@ -23,32 +23,24 @@ class MyFirstGame {
 
                 if (position == "больше") {
                     lastPositionStatus = "больше";
+                    if (statusChangedCounter == 0) {
+                        inputNum -= 30;
+                    } else if (statusChangedCounter == 1) {
+                        inputNum -= 5;
+                    } else if (statusChangedCounter == 2) {
+                        inputNum -= 5;
+                    } else if (statusChangedCounter >= 3) {
+                        inputNum -= 1;
+                    }
                 } else {
                     lastPositionStatus = "меньше";
-                }
-
-                if (statusChangedCounter == 0) {
-                    if (position == "больше") {
-                        inputNum -= 30;
-                    } else {
+                    if (statusChangedCounter == 0) {
                         inputNum += 30;
-                    }
-                } else if (statusChangedCounter == 1) {
-                    if (position == "больше") {
-                        inputNum -= 15;
-                    } else {
-                        inputNum += 15;
-                    }
-                } else if (statusChangedCounter == 2) {
-                    if (position == "больше") {
-                        inputNum -= 5;
-                    } else {
+                    } else if (statusChangedCounter == 1) {
                         inputNum += 5;
-                    }
-                } else if (statusChangedCounter >= 3) {
-                    if (position == "больше") {
-                        inputNum -= 1;
-                    } else {
+                    } else if (statusChangedCounter == 2) {
+                        inputNum += 5;
+                    } else if (statusChangedCounter >= 3) {
                         inputNum += 1;
                     }
                 }
