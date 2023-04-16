@@ -24,9 +24,7 @@ class CyclesTheme {
         int num3 = -1;
 
         int max = num1;
-        if (num1 > num2) {
-            max = num1;
-        } else {
+        if (num1 < num2) {
             max = num2;
         }
         if (num3 > max) {
@@ -34,9 +32,7 @@ class CyclesTheme {
         }
 
         int min = num1;
-        if (num1 < num2) {
-            min = num1;
-        } else {
+        if (num1 > num2) {
             min = num2;
         }
         if (num3 < max) {
@@ -148,71 +144,58 @@ class CyclesTheme {
 
         System.out.println("\n8. Проверка, является ли число палиндромом");
         num = 1234321;
-        int copyNum1 = num;
-        boolean isPalindrome = true;
-
-        while (copyNum1 >= 10) {
-            int firstDigit = copyNum1;
-            int copyNum2 = copyNum1;
-            int counterZero = 0;
-
-            if (copyNum1 >= 10) {
-                while (copyNum2 > 0) {
-                    copyNum2 /= 10;
-                    if (copyNum2 > 0) {
-                        firstDigit = copyNum2;
-                        counterZero++;
-                    }
-                }
-            }
-
-            if (firstDigit != copyNum1 % 10) {
-                isPalindrome = false;
-            }
-            copyNum1 /= 10;
-
-            int placeFirstDigit = 1;
-            for (int i = 0; i < counterZero; i++) {
-                placeFirstDigit *= 10;
-            }
-            copyNum1 -= placeFirstDigit * firstDigit;
+        copyNum = num;
+        int positionCounter = 1;
+        while (copyNum >= 10) {
+            copyNum /= 10;
+            positionCounter *= 10;
         }
 
-        if (isPalindrome) {
+        copyNum = num;
+        int reversNum = 0;
+        while (copyNum > 0) {
+            reversNum += copyNum % 10 * positionCounter;
+            positionCounter /= 10;
+            copyNum /= 10;
+        }
+
+        if (num == reversNum) {
             System.out.printf("Число %d является палиндромом%n", num);
         }
 
         System.out.println("\n9. Определение, является ли число счастливым");
         num = 132321;
-        int firstThreeDigit = num;
+        copyNum = num;
+        int firstThreeDigit = 0;
         int lastThreeDigit = 0;
+        int sumFirstThreeDigit = 0;
+        int sumLastThreeDigit = 0;
 
         int counterPlace = 0;
         int placeLastDigit = 1;
+        int placeFirstDigit = 100;
+        int positionFirstDigit = 100000;
         for (int i = 0; i < 3; i++) {
             if (counterPlace > 0) {
                 placeLastDigit *= 10;
+                placeFirstDigit /= 10;
+                positionFirstDigit /= 100;
             }
 
-            lastThreeDigit += firstThreeDigit % 10 * placeLastDigit;
-            firstThreeDigit /= 10;
+            int lastDigit = copyNum % 10;
+            int firstDigit = copyNum / positionFirstDigit;
+            lastThreeDigit += lastDigit * placeLastDigit;
+            sumLastThreeDigit += lastDigit;
+            firstThreeDigit += firstDigit * placeFirstDigit;
+            sumFirstThreeDigit += firstDigit;
+            copyNum -= positionFirstDigit * firstDigit;
+            copyNum /= 10;
             counterPlace++;
-        }
-
-        int sumFirstThreeDigit = 0;
-        int sumLastThreeDigit = 0;
-        int firstThreeDigitCopy = firstThreeDigit;
-        int lastThreeDigitCopy = lastThreeDigit;
-        for (int i = 0; i < 3; i++) {
-            sumFirstThreeDigit += firstThreeDigitCopy % 10;
-            firstThreeDigitCopy /= 10;
-            sumLastThreeDigit += lastThreeDigitCopy % 10;
-            lastThreeDigitCopy /= 10;
         }
 
         System.out.printf("Сумма цифр %d = %d%n", firstThreeDigit, sumFirstThreeDigit);
         System.out.printf("Сумма цифр %d = %d%n", lastThreeDigit, sumLastThreeDigit);
-        
+
         String isLucky = "счастливое";
         if (sumFirstThreeDigit != sumLastThreeDigit) {
             isLucky = "не счастливое";
@@ -222,28 +205,16 @@ class CyclesTheme {
 
         System.out.println("\n10.Вывод таблицы умножения Пифагора");
         System.out.printf("%4s%-13s%-13s%n", "    ", "ТАБЛИЦА", "ПИФАГОРА");
+        System.out.println("   |  2  3  4  5  6  7  8  9");
+        System.out.println("---|------------------------");
 
-        for (int i = 1; i <= 9; i++) {
-            if (i > 1) {
-                System.out.printf("%4s", i + " |");
-            } else {
-                System.out.printf("%4s", "  |");
-            }
+        for (int i = 2; i <= 9; i++) {
+            System.out.printf("%4s", i + " |");
 
             for (int j = 2; j <= 9; j++) {
                 System.out.printf("%3d", i * j);
             }
 
-            if (i == 1) {
-                System.out.println();
-                for (int k = 1; k <= 9; k++) {
-                    if (k == 1) {
-                        System.out.print("---|");
-                    } else {
-                        System.out.print("---");
-                    }
-                }
-            }
             System.out.println();
         }
     }
