@@ -145,59 +145,41 @@ class CyclesTheme {
         System.out.println("\n8. Проверка, является ли число палиндромом");
         num = 1234321;
         copyNum = num;
-        int positionCounter = 1;
-        while (copyNum >= 10) {
-            copyNum /= 10;
-            positionCounter *= 10;
-        }
-
-        copyNum = num;
         int reversNum = 0;
         while (copyNum > 0) {
-            reversNum += copyNum % 10 * positionCounter;
-            positionCounter /= 10;
+            reversNum = reversNum * 10 + copyNum % 10;
             copyNum /= 10;
         }
 
+        String isPalindrome;
         if (num == reversNum) {
-            System.out.printf("Число %d является палиндромом%n", num);
+            isPalindrome = "является";
+        } else {
+            isPalindrome = "не является";
         }
+        System.out.printf("Число %d %s палиндромом%n", num, isPalindrome);
 
         System.out.println("\n9. Определение, является ли число счастливым");
         num = 132321;
-        copyNum = num;
-        int firstThreeDigit = 0;
-        int lastThreeDigit = 0;
-        int sumFirstThreeDigit = 0;
-        int sumLastThreeDigit = 0;
+        int firstThreeDigits = num / 1000;
+        int lastThreeDigits = num % 1000;
+        int copyFirstThreeDigits = firstThreeDigits;
+        int copyLastThreeDigits = lastThreeDigits;
+        int sumFirstThreeDigits = 0;
+        int sumLastThreeDigits = 0;
 
-        int counterPlace = 0;
-        int placeLastDigit = 1;
-        int placeFirstDigit = 100;
-        int positionFirstDigit = 100000;
         for (int i = 0; i < 3; i++) {
-            if (counterPlace > 0) {
-                placeLastDigit *= 10;
-                placeFirstDigit /= 10;
-                positionFirstDigit /= 100;
-            }
-
-            int lastDigit = copyNum % 10;
-            int firstDigit = copyNum / positionFirstDigit;
-            lastThreeDigit += lastDigit * placeLastDigit;
-            sumLastThreeDigit += lastDigit;
-            firstThreeDigit += firstDigit * placeFirstDigit;
-            sumFirstThreeDigit += firstDigit;
-            copyNum -= positionFirstDigit * firstDigit;
-            copyNum /= 10;
-            counterPlace++;
+            sumLastThreeDigits += copyLastThreeDigits % 10;
+            copyLastThreeDigits /= 10;
+            sumFirstThreeDigits += copyFirstThreeDigits % 10;
+            copyFirstThreeDigits /= 10;
         }
 
-        System.out.printf("Сумма цифр %d = %d%n", firstThreeDigit, sumFirstThreeDigit);
-        System.out.printf("Сумма цифр %d = %d%n", lastThreeDigit, sumLastThreeDigit);
+        System.out.printf("Сумма цифр %d = %d%n", firstThreeDigits, sumFirstThreeDigits);
+        System.out.printf("Сумма цифр %d = %d%n", lastThreeDigits, sumLastThreeDigits);
 
         String isLucky = "счастливое";
-        if (sumFirstThreeDigit != sumLastThreeDigit) {
+        if (sumFirstThreeDigits != sumLastThreeDigits) {
             isLucky = "не счастливое";
         }
 
