@@ -18,7 +18,6 @@ public class Calculator {
 
     public void calculate() {
         int resault = 1;
-        boolean isCorrect = true;
 
         switch (sign) {
             case '+':
@@ -43,11 +42,9 @@ public class Calculator {
                 break;
             default:
                 System.out.println("Введенная операция не поддерживается");
-                isCorrect = false;
+                return;
         }
 
-        if (isCorrect) {
-            System.out.println(num1 + " " + sign + " " + num2 + " = " + resault);
-        }
+        System.out.println(num1 + " " + sign + " " + num2 + " = " + resault);
     }
 }
