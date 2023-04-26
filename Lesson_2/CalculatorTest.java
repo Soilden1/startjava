@@ -3,10 +3,10 @@ import java.util.Scanner;
 public class CalculatorTest {
     
     public static void main(String[] args) {
-        String contin = "yes";
+        String continuation = "yes";
         Scanner sc = new Scanner(System.in);
 
-        while (contin.equals("yes")) {
+        while (continuation.equals("yes")) {
             Calculator calculator = new Calculator();
             System.out.print("Введите первое число: ");
             int num1 = sc.nextInt();
@@ -21,8 +21,8 @@ public class CalculatorTest {
 
             do {
                 System.out.println("Хотите продолжить вычисления? [yes/no]");
-                contin = sc.next();
-            } while (!contin.equals("yes") && !contin.equals("no"));
+                continuation = sc.next();
+            } while (!continuation.equals("yes") && !continuation.equals("no"));
         }
     }
 }

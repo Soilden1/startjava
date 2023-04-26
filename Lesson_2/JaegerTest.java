@@ -10,13 +10,12 @@ public class JaegerTest {
         jaegerOne.setStrength(8);
         jaegerOne.setArmor(6);
 
-        Jaeger jaegerTwo = new Jaeger("Striker Eureka", "Mark-5", "Australia", 250, 1.850f, 10, 9);
-
         System.out.printf("jagerOne: %nИмя: %s%nМодель: %s%nПроизводитель: %s%nВысота:" +
                 "%f%nМасса: %f%nСила: %d%nБроня: %d%n%n", jaegerOne.getModelName(), jaegerOne.getMark(), 
                 jaegerOne.getOrigin(), jaegerOne.getHeight(), jaegerOne.getWeight(), 
                 jaegerOne.getStrength(), jaegerOne.getArmor());
 
+        Jaeger jaegerTwo = new Jaeger("Striker Eureka", "Mark-5", "Australia", 250, 1.850f, 10, 9);
         System.out.println("jaegerTwo:");
         System.out.println("Броня " + jaegerTwo.getModelName() + ": " + jaegerTwo.getArmor());
         jaegerTwo.setArmor(15);
