@@ -1,39 +1,40 @@
+import java.util.Scanner;
 import java.util.Random;
 
 class GuessNumber {
 
-    private Player playerOne;
-    private Player playerTwo;
+    private int hiddenNumber;
+    private Player player1;
+    private Player player2;
 
-    public GuessNumber(Player playerOne, Player playerTwo) {
-        this.playerOne = playerOne;
-        this.playerTwo = playerTwo;
+    public GuessNumber(Player player1, Player player2) {
+        this.player1 = player1;
+        this.player2 = player2;
     }
 
-    Random random = new Random();
-    private int hiddenNumber = random.nextInt(100) + 1;
+    public void startGuess() {
+        Scanner sc = new Scanner(System.in);
+        Random random = new Random();
+        hiddenNumber = random.nextInt(100) + 1;
 
-    public boolean attemptPlayerOne() {
-        int number = playerOne.getNumber();
-        if (number == hiddenNumber) {
-            System.out.println(playerOne.getName() + " победил!");
-            return true;
-        } else {
-            String position;
-            if (number > hiddenNumber) {
-                position = "больше";
-            } else {
-                position = "меньше";
+        boolean isGuessed = false;
+        while (!isGuessed) {
+            System.out.print(player1.getName() + ", введите число: ");
+            player1.setNumber(sc.nextInt());
+            isGuessed = attempt(player1);
+
+            if (!isGuessed) {
+                System.out.print(player2.getName() + ", введите число: ");
+                player2.setNumber(sc.nextInt());
+                isGuessed = attempt(player2);
             }
-            System.out.printf("Число %d %s того, что загадал компьютер%n", number, position);
-            return false;
         }
     }
 
-    public boolean attemptPlayerTwo() {
-        int number = playerTwo.getNumber();
+    private boolean attempt(Player player) {
+        int number = player.getNumber();
         if (number == hiddenNumber) {
-            System.out.println(playerTwo.getName() + " победил!");
+            System.out.println(player.getName() + " победил!");
             return true;
         } else {
             String position;
