@@ -17,24 +17,24 @@ class GuessNumber {
         Random random = new Random();
         hiddenNumber = random.nextInt(100) + 1;
 
-        while (hiddenNumber != player1.getNumber() && hiddenNumber != player2.getNumber()) {
+        do {
             System.out.print(player1.getName() + ", введите число: ");
             player1.setNumber(sc.nextInt());
-            guess(player1);
 
-            if (hiddenNumber != player1.getNumber()) {
+            if (isGuessed(player1)) {
                 System.out.print(player2.getName() + ", введите число: ");
                 player2.setNumber(sc.nextInt());
-                guess(player2);
+            } else {
+                return;
             }
-        }
+        } while (isGuessed(player2));
     }
 
-    private void guess(Player player) {
+    private boolean isGuessed(Player player) {
         int number = player.getNumber();
         if (number == hiddenNumber) {
             System.out.println(player.getName() + " победил!");
-            return;
+            return false;
         }
 
         String state;
@@ -44,5 +44,6 @@ class GuessNumber {
             state = "меньше";
         }
         System.out.printf("Число %d %s того, что загадал компьютер%n", number, state);
+        return true;
     }
 }
