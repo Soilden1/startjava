@@ -7,17 +7,17 @@ class GuessNumberTest {
         String continuation = "yes";
         
         System.out.print("Введите имя первого игрока: ");
-            Player player1 = new Player(sc.next());
-            System.out.print("Введите имя второго игрока: ");
-            Player player2 = new Player(sc.next());
+        Player player1 = new Player(sc.next());
+        System.out.print("Введите имя второго игрока: ");
+        Player player2 = new Player(sc.next());
 
         while (continuation.equals("yes")) {
-            GuessNumber gn = new GuessNumber(player1, player2);
-            gn.startGuess();
+            GuessNumber game = new GuessNumber(player1, player2);
+            game.launch();
 
             do {
-            System.out.println("Хотите продолжить игру? [yes/no]");
-            continuation = sc.next();
+                System.out.println("Хотите продолжить игру? [yes/no]");
+                continuation = sc.next();
             } while (!continuation.equals("yes") && !continuation.equals("no"));
         }
     }

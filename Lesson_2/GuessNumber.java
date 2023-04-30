@@ -12,39 +12,37 @@ class GuessNumber {
         this.player2 = player2;
     }
 
-    public void startGuess() {
+    public void launch() {
         Scanner sc = new Scanner(System.in);
         Random random = new Random();
         hiddenNumber = random.nextInt(100) + 1;
 
-        boolean isGuessed = false;
-        while (!isGuessed) {
+        while (hiddenNumber != player1.getNumber() && hiddenNumber != player2.getNumber()) {
             System.out.print(player1.getName() + ", введите число: ");
             player1.setNumber(sc.nextInt());
-            isGuessed = attempt(player1);
+            guess(player1);
 
-            if (!isGuessed) {
+            if (hiddenNumber != player1.getNumber()) {
                 System.out.print(player2.getName() + ", введите число: ");
                 player2.setNumber(sc.nextInt());
-                isGuessed = attempt(player2);
+                guess(player2);
             }
         }
     }
 
-    private boolean attempt(Player player) {
+    private void guess(Player player) {
         int number = player.getNumber();
         if (number == hiddenNumber) {
             System.out.println(player.getName() + " победил!");
-            return true;
-        } else {
-            String position;
-            if (number > hiddenNumber) {
-                position = "больше";
-            } else {
-                position = "меньше";
-            }
-            System.out.printf("Число %d %s того, что загадал компьютер%n", number, position);
-            return false;
+            return;
         }
+
+        String state;
+        if (number > hiddenNumber) {
+            state = "больше";
+        } else {
+            state = "меньше";
+        }
+        System.out.printf("Число %d %s того, что загадал компьютер%n", number, state);
     }
 }
