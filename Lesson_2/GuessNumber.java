@@ -22,28 +22,23 @@ class GuessNumber {
             player1.setNumber(sc.nextInt());
 
             if (isGuessed(player1)) {
-                System.out.print(player2.getName() + ", введите число: ");
-                player2.setNumber(sc.nextInt());
-            } else {
-                return;
+                break;
             }
-        } while (isGuessed(player2));
+
+            System.out.print(player2.getName() + ", введите число: ");
+            player2.setNumber(sc.nextInt());
+        } while (!isGuessed(player2));
     }
 
     private boolean isGuessed(Player player) {
         int number = player.getNumber();
         if (number == hiddenNumber) {
             System.out.println(player.getName() + " победил!");
-            return false;
+            return true;
         }
 
-        String state;
-        if (number > hiddenNumber) {
-            state = "больше";
-        } else {
-            state = "меньше";
-        }
+        String state = (number > hiddenNumber ? "больше" : "меньше");
         System.out.printf("Число %d %s того, что загадал компьютер%n", number, state);
-        return true;
+        return false;
     }
 }
