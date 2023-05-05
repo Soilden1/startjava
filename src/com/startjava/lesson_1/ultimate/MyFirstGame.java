@@ -1,3 +1,5 @@
+package com.startjava.lesson_1.ultimate;
+
 class MyFirstGame {
 
     public static void main(String[] args) {
