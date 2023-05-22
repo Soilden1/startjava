@@ -6,97 +6,101 @@ import java.util.Arrays;
 public class ArrayTheme {
 
     public static void main(String[] args) {
+        numberOne();
+        numberTwo();
+        numberTree();
+        numberFour();
+        numberFive();
+        numberSix();
+    }
+
+    public static void numberOne() {
         System.out.println("1. Реверс значений массива");
         int[] intArray = {3, 7, 1, 2, 6, 4, 5};
-        printIntArray(intArray);
+        print(intArray);
         int length = intArray.length;
-        for (int i = 0; i < length / 2; i++) {
+        for (int i = 0; i < length; i++) {
             int tmp = intArray[i];
-            intArray[i] = intArray[length - 1 - i];
-            intArray[length - 1 - i] = tmp;
+            length--;
+            intArray[i] = intArray[length];
+            intArray[length] = tmp;
         }
-        printIntArray(intArray);
+        print(intArray);
+    }
 
+    public static void numberTwo() {
         System.out.println("\n2. Вывод произведения элементов массива");
-        intArray = new int[10];
+        int[] intArray = new int[10];
+        int length = intArray.length;
         int prod = 1;
-        for (int i = 0; i < intArray.length; i++) {
+        for (int i = 0; i < length; i++) {
             intArray[i] = i;
             if (i > 0 && i < 9) {
                 prod *= i;
-                System.out.print(i < 8 ? i + " * " : i + " = " + prod + "\n");
+                System.out.print(i);
+                System.out.print(i < length - 2 ? " * " : " = " + prod + "\n");
             }
         }
-        System.out.println(intArray[0] + "(index: 0) " + intArray[9] + "(index: 9)");
+        System.out.println(intArray[0] + "(index: 0) " + intArray[length - 1] + "(index: 9)");
+    }
 
+    public static void numberTree() {
         System.out.println("\n3. Удаление элементов массива");
         Random random = new Random();
         double[] doubleArray = new double[15];
-        length = doubleArray.length;
+        int length = doubleArray.length;
         for (int i = 0; i < length; i++) {
             doubleArray[i] = random.nextDouble(1);
         }
-        printDoubleArray(doubleArray);
+        print(doubleArray, length);
 
-        int averageIndex = 0;
-        for (int i = 0; i < length; i++) {
-            int smallerNumberCounter = 0;
-            int biggerNumberCounter = 0;
-            for (double number : doubleArray) {
-                if (number > doubleArray[i]) {
-                    biggerNumberCounter++;
-                } else {
-                    smallerNumberCounter++;
-                }
-            }
-
-            if (biggerNumberCounter + 1 == smallerNumberCounter) {
-                averageIndex = i;
-                break;
-            }
-        }
-
+        int averageIndex = length / 2;
         double average = doubleArray[averageIndex];
-        int zeroedCellsCounter = 0;
+        int countZeroedCells = 0;
         for (int i = 0; i < length; i++) {
             if (doubleArray[i] > average) {
                 doubleArray[i] = 0;
-                zeroedCellsCounter++;
+                countZeroedCells++;
             }
         }
-        printDoubleArray(doubleArray);
-        System.out.println("Количество обнуленных ячеек: " + zeroedCellsCounter);
+        print(doubleArray, length);
+        System.out.println("Количество обнуленных ячеек: " + countZeroedCells);
+    }
 
+    public static void numberFour() {
         System.out.println("\n4. Вывод элементов массива лесенкой в обратном порядке");
-        char[] deployedAlphabet = new char[26];
-        int index = 0;
-        for (char i = 'Z'; i >= 'A'; i--, index++) {
-            deployedAlphabet[index] = i;
+        char[] alphabet = new char[26];
+        int length = alphabet.length;
+        for (int i = 0; i < length; i++) {
+            alphabet[i] = (char) ('A' + i);
         }
 
-        for (int i = 0; i < deployedAlphabet.length; i++) {
+        for (int i = 0; i < length; i++) {
             for (int j = 0; j <= i; j++) {
-                System.out.print(deployedAlphabet[j]);
+                System.out.print(alphabet[length - 1 - j]);
             }
             System.out.println();
         }
+    }
 
+    public static void numberFive() {
         System.out.println("\n5. Генерация уникальных чисел");
-        intArray = new int[30];
-        length = intArray.length;
+        int[] intArray = new int[30];
+        int length = intArray.length;
+        Random random = new Random();
         for (int i = 0; i < length; i++) {
             while (intArray[i] == 0) {
-                int num = random.nextInt(60, 100);
+                int randomNumber = random.nextInt(60, 100);
                 boolean isNotMatches = true;
                 for (int number : intArray) {
-                    if (number == num) {
+                    if (number == randomNumber) {
                         isNotMatches = false;
                         break;
                     }
                 }
 
                 if (isNotMatches) {
-                    intArray[i] = num;
+                    intArray[i] = randomNumber;
                 }
             }
         }
@@ -104,49 +108,54 @@ public class ArrayTheme {
         for (int i = 0; i < length; i++) {
             System.out.print((i + 1) % 10 > 0 ? intArray[i] + " " : intArray[i] + "\n");
         }
+    }
 
+    public static void numberSix() {
         System.out.println("\n6. Копирование не пустых строк");
-        String[] firstStringArray = {" ", "AA", "", "BBB", "CC", "D", " ", "E", "FF", "G", ""};
-        int counterBlankString = 0;
-        for (String string : firstStringArray) {
+        String[] srcStrings = {" ", "AA", "", "BBB", "CC", "D", " ", "E", "FF", "G", ""};
+        int countNonBlankStrings = 0;
+        for (String string : srcStrings) {
             if (string.isBlank()) {
-                counterBlankString++;
+                countNonBlankStrings++;
             }
         }
 
-        length = firstStringArray.length;
-        String[] secondBlankString = new String[length - counterBlankString];
+        int length = srcStrings.length;
+        String[] destStrings = new String[length - countNonBlankStrings];
         int scrPos = 0;
         int destPos = 0;
         while (scrPos < length) {
             for (int i = scrPos; i < length; i++) {
-                if (firstStringArray[i].isBlank()) {
+                if (srcStrings[i].isBlank()) {
                     int pieceLength = i - scrPos;
-                    System.arraycopy(firstStringArray, scrPos, secondBlankString, destPos, pieceLength);
+                    System.arraycopy(srcStrings, scrPos, destStrings, destPos, pieceLength);
                     destPos += pieceLength;
                     scrPos = i + 1;
                 }
             }
         }
-        printStringArray(firstStringArray);
-        printStringArray(secondBlankString);
+        print(srcStrings);
+        print(destStrings);
     }
 
-    private static void printIntArray(int[] intArray){
-        for (int num : intArray) {
-            System.out.print(num + " ");
+    private static void print(int[] intArray) {
+        for (int number : intArray) {
+            System.out.print(number + " ");
         }
         System.out.println();
     }
 
-    private static void printDoubleArray(double[] doubleArray){
-        for (double num : doubleArray) {
-            System.out.printf("%6.3f ", num);
+    private static void print(double[] doubleArray, int length) {
+        for (int i = 0; i < length; i++) {
+            System.out.printf("%6.3f ", doubleArray[i]);
+            if (i == length / 2) {
+                System.out.println();
+            }
         }
-        System.out.println();
+        System.out.println("\n");
     }
 
-    private static void printStringArray(String[] stringArray) {
+    private static void print(String[] stringArray) {
         for (String string : stringArray) {
             System.out.print(string + " ");
         }
