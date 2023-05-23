@@ -6,45 +6,44 @@ import java.util.Arrays;
 public class ArrayTheme {
 
     public static void main(String[] args) {
-        numberOne();
-        numberTwo();
-        numberTree();
-        numberFour();
-        numberFive();
-        numberSix();
+        reverseArray();
+        calculateProductElements();
+        deleteElements();
+        printReverseAlphabet();
+        generateUniqueNumbers();
+        copyNotBlankStrings();
     }
 
-    public static void numberOne() {
+    public static void reverseArray() {
         System.out.println("1. Реверс значений массива");
         int[] intArray = {3, 7, 1, 2, 6, 4, 5};
         print(intArray);
         int length = intArray.length;
         for (int i = 0; i < length; i++) {
             int tmp = intArray[i];
-            length--;
-            intArray[i] = intArray[length];
+            intArray[i] = intArray[--length];
             intArray[length] = tmp;
         }
         print(intArray);
     }
 
-    public static void numberTwo() {
+    public static void calculateProductElements() {
         System.out.println("\n2. Вывод произведения элементов массива");
-        int[] intArray = new int[10];
-        int length = intArray.length;
+        int[] multipliers = new int[10];
+        int length = multipliers.length;
         int prod = 1;
         for (int i = 0; i < length; i++) {
-            intArray[i] = i;
+            multipliers[i] = i;
             if (i > 0 && i < 9) {
                 prod *= i;
                 System.out.print(i);
                 System.out.print(i < length - 2 ? " * " : " = " + prod + "\n");
             }
         }
-        System.out.println(intArray[0] + "(index: 0) " + intArray[length - 1] + "(index: 9)");
+        System.out.println(multipliers[0] + "(index: 0) " + multipliers[length - 1] + "(index: 9)");
     }
 
-    public static void numberTree() {
+    public static void deleteElements() {
         System.out.println("\n3. Удаление элементов массива");
         Random random = new Random();
         double[] doubleArray = new double[15];
@@ -54,11 +53,10 @@ public class ArrayTheme {
         }
         print(doubleArray, length);
 
-        int averageIndex = length / 2;
-        double average = doubleArray[averageIndex];
+        double middleCellValue = doubleArray[length / 2];
         int countZeroedCells = 0;
         for (int i = 0; i < length; i++) {
-            if (doubleArray[i] > average) {
+            if (doubleArray[i] > middleCellValue) {
                 doubleArray[i] = 0;
                 countZeroedCells++;
             }
@@ -67,7 +65,7 @@ public class ArrayTheme {
         System.out.println("Количество обнуленных ячеек: " + countZeroedCells);
     }
 
-    public static void numberFour() {
+    public static void printReverseAlphabet() {
         System.out.println("\n4. Вывод элементов массива лесенкой в обратном порядке");
         char[] alphabet = new char[26];
         int length = alphabet.length;
@@ -83,16 +81,16 @@ public class ArrayTheme {
         }
     }
 
-    public static void numberFive() {
+    public static void generateUniqueNumbers() {
         System.out.println("\n5. Генерация уникальных чисел");
-        int[] intArray = new int[30];
-        int length = intArray.length;
+        int[] uniqueNumbers = new int[30];
+        int length = uniqueNumbers.length;
         Random random = new Random();
         for (int i = 0; i < length; i++) {
-            while (intArray[i] == 0) {
+            while (uniqueNumbers[i] == 0) {
                 int randomNumber = random.nextInt(60, 100);
                 boolean isNotMatches = true;
-                for (int number : intArray) {
+                for (int number : uniqueNumbers) {
                     if (number == randomNumber) {
                         isNotMatches = false;
                         break;
@@ -100,17 +98,17 @@ public class ArrayTheme {
                 }
 
                 if (isNotMatches) {
-                    intArray[i] = randomNumber;
+                    uniqueNumbers[i] = randomNumber;
                 }
             }
         }
-        Arrays.sort(intArray);
+        Arrays.sort(uniqueNumbers);
         for (int i = 0; i < length; i++) {
-            System.out.print((i + 1) % 10 > 0 ? intArray[i] + " " : intArray[i] + "\n");
+            System.out.print((i + 1) % 10 > 0 ? uniqueNumbers[i] + " " : uniqueNumbers[i] + "\n");
         }
     }
 
-    public static void numberSix() {
+    public static void copyNotBlankStrings() {
         System.out.println("\n6. Копирование не пустых строк");
         String[] srcStrings = {" ", "AA", "", "BBB", "CC", "D", " ", "E", "FF", "G", ""};
         int countNonBlankStrings = 0;
