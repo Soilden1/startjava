@@ -2,42 +2,28 @@ package com.startjava.lesson_2_3_4.calculator;
 
 public class Calculator {
 
-    private String mathematicalExpression;
-
-    public void setMathematicalExpression(String mathematicalExpression) {
-        this.mathematicalExpression = mathematicalExpression;
-    }
-
-    public double calculate() {
-        double result;
-        String[] mathematicalElements = mathematicalExpression.split(" ");
-        char sign = mathematicalElements[1].charAt(0);
-        int num1 = Integer.parseInt(mathematicalElements[0]);
-        int num2 = Integer.parseInt(mathematicalElements[2]);
+    public double calculate(String mathematicalExpression) {
+        String[] elements = mathematicalExpression.split(" ");
+        char sign = elements[1].charAt(0);
+        int num1 = Integer.parseInt(elements[0]);
+        int num2 = Integer.parseInt(elements[2]);
 
         switch (sign) {
             case '+':
-                result = Math.addExact(num1, num2);
-                break;
+                return Math.addExact(num1, num2);
             case '-':
-                result = num1 - num2;
-                break;
+                return num1 - num2;
             case '*':
-                result = Math.multiplyExact(num1, num2);
-                break;
+                return Math.multiplyExact(num1, num2);
             case '/':
-                result = (double) num1 / num2;
-                break;
+                return  (double) num1 / num2;
             case '%':
-                result = num1 % num2;
-                break;
+                return num1 % num2;
             case '^':
-                result = Math.pow(num1, num2);
-                break;
+                return Math.pow(num1, num2);
             default:
                 System.out.println("Введенная операция не поддерживается");
                 return 0.0;
         }
-        return result;
     }
 }
