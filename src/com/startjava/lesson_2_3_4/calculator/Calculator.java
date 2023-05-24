@@ -2,51 +2,42 @@ package com.startjava.lesson_2_3_4.calculator;
 
 public class Calculator {
 
-    private int num1;
-    private int num2;
-    private char sign;
+    private String mathematicalExpression;
 
-    public void setNum1(int num1) {
-        this.num1 = num1;
+    public void setMathematicalExpression(String mathematicalExpression) {
+        this.mathematicalExpression = mathematicalExpression;
     }
 
-    public void setNum2(int num2) {
-        this.num2 = num2;
-    }
-
-    public void setSign(char sign) {
-        this.sign = sign;
-    }
-
-    public void calculate() {
-        int resault = 1;
+    public double calculate() {
+        double result;
+        String[] mathematicalElements = mathematicalExpression.split(" ");
+        char sign = mathematicalElements[1].charAt(0);
+        int num1 = Integer.parseInt(mathematicalElements[0]);
+        int num2 = Integer.parseInt(mathematicalElements[2]);
 
         switch (sign) {
             case '+':
-                resault = num1 + num2;
+                result = Math.addExact(num1, num2);
                 break;
             case '-':
-                resault = num1 - num2;
+                result = num1 - num2;
                 break;
             case '*':
-                resault = num1 * num2;
+                result = Math.multiplyExact(num1, num2);
                 break;
             case '/':
-                resault = num1 / num2;
+                result = (double) num1 / num2;
                 break;
             case '%':
-                resault = num1 % num2;
+                result = num1 % num2;
                 break;
             case '^':
-                for (int i = 1; i <= num2; i++) {
-                    resault *= num1;
-                }
+                result = Math.pow(num1, num2);
                 break;
             default:
                 System.out.println("Введенная операция не поддерживается");
-                return;
+                return 0.0;
         }
-
-        System.out.println(num1 + " " + sign + " " + num2 + " = " + resault);
+        return result;
     }
 }

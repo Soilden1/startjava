@@ -5,26 +5,26 @@ import java.util.Scanner;
 public class CalculatorTest {
     
     public static void main(String[] args) {
-        String continuation = "yes";
         Scanner sc = new Scanner(System.in);
 
-        while (continuation.equals("yes")) {
+        while (true) {
             Calculator calculator = new Calculator();
-            System.out.print("Введите первое число: ");
-            int num1 = sc.nextInt();
-            calculator.setNum1(num1);
-            System.out.print("Введите знак математической операции: ");
-            char sign = sc.next().charAt(0);
-            calculator.setSign(sign);
-            System.out.print("Введите второе число: ");
-            int num2 = sc.nextInt();
-            calculator.setNum2(num2);
-            calculator.calculate();
+            System.out.print("Введите математическое выражение: ");
+            String mathematicalExpression = sc.nextLine();
+            calculator.setMathematicalExpression(mathematicalExpression);
+            double result = calculator.calculate();
 
-            do {
-                System.out.println("Хотите продолжить вычисления? [yes/no]");
-                continuation = sc.next();
-            } while (!continuation.equals("yes") && !continuation.equals("no"));
+            if (result % 1 > 0) {
+                System.out.printf("%.3f", result);
+            } else {
+                System.out.print((int) result);
+            }
+
+            System.out.println("\nХотите продолжить вычисления? [yes/no]");
+            String continuation = sc.nextLine();
+            if (!continuation.equals("yes")) {
+                break;
+            }
         }
     }
 }
