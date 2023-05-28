@@ -36,7 +36,8 @@ public class CalculatorTest {
             System.out.println("Ошибка: введены невалидные данные, вводите выражение в формате 'a + b'");
             return false;
         }
-        if (mathExpression.contains(".") || elements[0].contains("-") || elements[2].contains("-")) {
+        if ((mathExpression.contains(".") && !elements[1].equals(".")) ||
+                elements[0].contains("-") || elements[2].contains("-")) {
             System.out.println("Ошибка: вводимые числа должны быть целыми и положительными");
             return false;
         }
