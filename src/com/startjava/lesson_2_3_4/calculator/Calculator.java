@@ -40,7 +40,6 @@ public class Calculator {
             System.out.println("Ошибка: должны вводиться целые числа");
             return false;
         }
-
         return true;
     }
 }
