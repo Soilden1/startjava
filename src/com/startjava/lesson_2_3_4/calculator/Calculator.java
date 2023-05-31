@@ -4,11 +4,12 @@ public class Calculator {
 
     public static double calculate(String mathExpression) {
         String[] elements = mathExpression.split(" ");
-        char sign = elements[1].charAt(0);
-        int num1 = Integer.parseInt(elements[0]);
-        int num2 = Integer.parseInt(elements[2]);
 
         if (isValid(elements)) {
+            char sign = elements[1].charAt(0);
+            int num1 = Integer.parseInt(elements[0]);
+            int num2 = Integer.parseInt(elements[2]);
+
             return switch (sign) {
                 case '+' -> Math.addExact(num1, num2);
                 case '-' -> num1 - num2;
@@ -30,11 +31,16 @@ public class Calculator {
             System.out.println("Ошибка: введены невалидные данные, вводите выражение в формате 'a + b'");
             return false;
         }
-        if (elements[0].contains(".") || elements[2].contains(".") ||
-                elements[0].contains("-") || elements[2].contains("-")) {
-            System.out.println("Ошибка: вводимые числа должны быть целыми и положительными");
+        try {
+            if (Integer.parseInt(elements[0]) <= 0 || Integer.parseInt(elements[2]) <= 0) {
+                System.out.println("Ошибка: вводимые числа должны быть положительными");
+                return false;
+            }
+        } catch (NumberFormatException e) {
+            System.out.println("Ошибка: должны вводиться целые числа");
             return false;
         }
+
         return true;
     }
 }
