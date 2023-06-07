@@ -1,9 +1,7 @@
 package com.startjava.lesson_2_3_4.guess;
 
-import java.util.Arrays;
 import java.util.Scanner;
 import java.util.Random;
-import static com.startjava.lesson_2_3_4.guess.Player.STARTING_ATTEMPTS;
 
 class GuessNumber {
 
@@ -20,9 +18,7 @@ class GuessNumber {
         Scanner sc = new Scanner(System.in);
         Random random = new Random();
         hiddenNumber = random.nextInt(100) + 1;
-        player1.setAttempts(STARTING_ATTEMPTS);
-        player2.setAttempts(STARTING_ATTEMPTS);
-        System.out.println("У каждого игрока по " + STARTING_ATTEMPTS + " попыток");
+        System.out.println("У каждого игрока по " + Player.CAPACITY + " попыток");
 
         do {
             System.out.print(player1.getName() + ", введите число: ");
@@ -38,19 +34,16 @@ class GuessNumber {
 
         printNumbers(player1);
         printNumbers(player2);
-        clearNumbers(player1);
-        clearNumbers(player2);
+        player1.clear();
+        player2.clear();
     }
 
     private boolean isGuessed(Player player) {
         int number = player.getNumber();
-        int[] numbers = Arrays.copyOf(player.getNumbers(), STARTING_ATTEMPTS);
-        numbers[player.getNumbers().length] = number;
-        player.setNumbers(numbers);
         player.setAttempts(player.getAttempts() - 1);
         if (number == hiddenNumber) {
             System.out.println("Игрок " + player.getName() + " угадал число " + hiddenNumber +
-                    " c " + (STARTING_ATTEMPTS - player.getAttempts()) + " попытки");
+                    " c " + (Player.CAPACITY - player.getAttempts()) + " попытки");
             return true;
         }
 
@@ -68,11 +61,5 @@ class GuessNumber {
             System.out.print(number + " ");
         }
         System.out.println();
-    }
-
-    private void clearNumbers(Player player) {
-        int[] numbers = player.getNumbers();
-        Arrays.fill(numbers, 0);
-        player.setNumbers(numbers);
     }
 }
