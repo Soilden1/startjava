@@ -6,6 +6,7 @@ import java.util.Random;
 
 class GuessNumber {
 
+    private static final int MAX_NUMBER = 100;
     private final Player[] players;
     private int hiddenNumber;
 
@@ -19,7 +20,7 @@ class GuessNumber {
         int round = 0;
         while (round < 3) {
             round++;
-            hiddenNumber = random.nextInt(100) + 1;
+            hiddenNumber = random.nextInt(MAX_NUMBER) + 1;
             System.out.printf("Начинается %d раунд%n", round);
             System.out.println("У каждого игрока по " + Player.CAPACITY + " попыток");
 
@@ -61,8 +62,8 @@ class GuessNumber {
         System.out.print(player.getName() + ", введите число: ");
         int number = sc.nextInt();
 
-        if (number > 0 && number <= 100) {
-            player.setNumber(number);
+        if (number > 0 && number <= MAX_NUMBER) {
+            player.addNumber(number);
         } else {
             System.out.println("Ошибка: вводите числа в интервале от 1 до 100");
             inputNumber(player);
@@ -71,10 +72,9 @@ class GuessNumber {
 
     private boolean isGuessed(Player player) {
         int number = player.getNumber();
-        player.addAttempt();
 
         if (number == hiddenNumber) {
-            player.addNumberOfGuessed();
+            player.incScore();
             System.out.println("Игрок " + player.getName() + " угадал число " + hiddenNumber +
                     " c " + (player.getAttempts()) + " попытки");
             return true;
@@ -96,20 +96,20 @@ class GuessNumber {
     }
 
     private void determineWinner() {
-        int maxGuessed = 0;
+        int maxScore = 0;
         int winnerIndex = 0;
         int countWinners = 0;
 
         for (int i = 0; i < players.length; i++) {
-            int guessed = players[i].getNumberOfGuessed();
-            if (guessed > maxGuessed) {
-                maxGuessed = guessed;
+            int score = players[i].getScore();
+            if (score > maxScore) {
+                maxScore = score;
                 winnerIndex = i;
                 countWinners = 1;
-            } else if (guessed == maxGuessed) {
+            } else if (score == maxScore) {
                 countWinners = 0;
             }
-            players[i].clearNumberOfGuessed();
+            players[i].clearScore();
         }
 
         if (countWinners == 1) {
