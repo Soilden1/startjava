@@ -6,7 +6,6 @@ import java.util.Random;
 
 class GuessNumber {
 
-    private static final int MAX_NUMBER = 100;
     private final Player[] players;
     private int hiddenNumber;
 
@@ -20,7 +19,7 @@ class GuessNumber {
         int round = 0;
         while (round < 3) {
             round++;
-            hiddenNumber = random.nextInt(MAX_NUMBER) + 1;
+            hiddenNumber = random.nextInt(Player.MAX_NUMBER) + 1;
             System.out.printf("Начинается %d раунд%n", round);
             System.out.println("У каждого игрока по " + Player.CAPACITY + " попыток");
 
@@ -62,7 +61,7 @@ class GuessNumber {
         System.out.print(player.getName() + ", введите число: ");
         int number = sc.nextInt();
 
-        if (number > 0 && number <= MAX_NUMBER) {
+        if (number > 0 && number <= Player.MAX_NUMBER) {
             player.addNumber(number);
         } else {
             System.out.println("Ошибка: вводите числа в интервале от 1 до 100");

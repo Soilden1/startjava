@@ -5,6 +5,7 @@ import java.util.Arrays;
 class Player {
 
     public static final int CAPACITY = 10;
+    public static final int MAX_NUMBER = 100;
     private final String name;
     private final int[] numbers = new int[CAPACITY];
     private int attempts;
@@ -35,7 +36,7 @@ class Player {
     }
 
     public void addNumber(int number) {
-        if (number > 0 && number <= 100) {
+        if (number > 0 && number <= MAX_NUMBER) {
             numbers[attempts++] = number;
         }
     }
