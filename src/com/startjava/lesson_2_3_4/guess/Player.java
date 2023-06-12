@@ -6,9 +6,9 @@ class Player {
 
     public static final int CAPACITY = 10;
     private final String name;
-    private int attempts = 0;
     private final int[] numbers = new int[CAPACITY];
-    private int numberOfGuessed = 0;
+    private int attempts;
+    private int score;
 
     public Player(String name) {
         this.name = name;
@@ -19,29 +19,29 @@ class Player {
     }
 
     public int getNumber() {
-        return numbers[attempts];
-    }
-
-    public void setNumber(int number) {
-        if (number > 0 && number <= 100) {
-            numbers[attempts] = number;
-        }
-    }
-
-    public int getAttempts() {
-        return attempts;
+        return numbers[attempts - 1];
     }
 
     public int[] getNumbers() {
         return Arrays.copyOf(numbers, attempts);
     }
 
-    public int getNumberOfGuessed() {
-        return numberOfGuessed;
+    public int getAttempts() {
+        return attempts;
     }
 
-    public void addAttempt() {
-        attempts++;
+    public int getScore() {
+        return score;
+    }
+
+    public void addNumber(int number) {
+        if (number > 0 && number <= 100) {
+            numbers[attempts++] = number;
+        }
+    }
+
+    public void incScore() {
+        score++;
     }
 
     public void clear() {
@@ -49,11 +49,7 @@ class Player {
         attempts = 0;
     }
 
-    public void addNumberOfGuessed() {
-        numberOfGuessed++;
-    }
-
-    public void clearNumberOfGuessed() {
-        numberOfGuessed = 0;
+    public void clearScore() {
+        score = 0;
     }
 }
