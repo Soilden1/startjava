@@ -23,6 +23,14 @@ class Player {
         return numbers[attempts - 1];
     }
 
+    public boolean addNumber(int number) {
+        if (number > 0 && number <= MAX_NUMBER) {
+            numbers[attempts++] = number;
+            return true;
+        }
+        return false;
+    }
+
     public int[] getNumbers() {
         return Arrays.copyOf(numbers, attempts);
     }
@@ -33,12 +41,6 @@ class Player {
 
     public int getScore() {
         return score;
-    }
-
-    public void addNumber(int number) {
-        if (number > 0 && number <= MAX_NUMBER) {
-            numbers[attempts++] = number;
-        }
     }
 
     public void incScore() {

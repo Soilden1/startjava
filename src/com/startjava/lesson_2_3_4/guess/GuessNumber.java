@@ -1,30 +1,28 @@
 package com.startjava.lesson_2_3_4.guess;
 
-import java.util.Arrays;
 import java.util.Scanner;
 import java.util.Random;
 
 class GuessNumber {
 
+    private static final int ROUNDS = 3;
     private final Player[] players;
     private int hiddenNumber;
 
     public GuessNumber(Player... players) {
-        this.players = Arrays.copyOf(players, players.length);
+        this.players = players;
     }
 
     public void launch() {
         Random random = new Random();
         castLots();
-        int round = 0;
-        while (round < 3) {
-            round++;
+        for (int i = 0; i < ROUNDS; i++) {
             hiddenNumber = random.nextInt(Player.MAX_NUMBER) + 1;
-            System.out.printf("Начинается %d раунд%n", round);
+            System.out.printf("Начинается %d раунд%n", i + 1);
             System.out.println("У каждого игрока по " + Player.CAPACITY + " попыток");
 
             int step = 0;
-            while (isContinuing() && step < Player.CAPACITY) {
+            while (isGuessed() && step < Player.CAPACITY) {
                 step++;
             }
 
@@ -46,10 +44,10 @@ class GuessNumber {
         }
     }
 
-    private boolean isContinuing() {
+    private boolean isGuessed() {
         for (Player player : players) {
             inputNumber(player);
-            if (isGuessed(player)) {
+            if (compareNumbers(player)) {
                 return false;
             }
         }
@@ -61,18 +59,17 @@ class GuessNumber {
         System.out.print(player.getName() + ", введите число: ");
         int number = sc.nextInt();
 
-        if (number > 0 && number <= Player.MAX_NUMBER) {
-            player.addNumber(number);
-        } else {
+        if (!player.addNumber(number)) {
             System.out.println("Ошибка: вводите числа в интервале от 1 до 100");
             inputNumber(player);
         }
     }
 
-    private boolean isGuessed(Player player) {
+    private boolean compareNumbers(Player player) {
         int number = player.getNumber();
 
         if (number == hiddenNumber) {
+
             player.incScore();
             System.out.println("Игрок " + player.getName() + " угадал число " + hiddenNumber +
                     " c " + (player.getAttempts()) + " попытки");

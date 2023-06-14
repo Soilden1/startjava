@@ -4,13 +4,12 @@ import java.util.Scanner;
 
 class GuessNumberTest {
 
-    private static final int NUMBER_OF_PLAYERS = 3;
-    private static final Player[] players = new Player[NUMBER_OF_PLAYERS];
+    private static final int MAX_PLAYERS = 3;
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
-        createPlayers();
+        Player[] players = createPlayers(sc);
         String continuation = "yes";
         while (!continuation.equals("no")) {
             if (continuation.equals("yes")) {
@@ -23,11 +22,12 @@ class GuessNumberTest {
         }
     }
 
-    private static void createPlayers() {
-        Scanner sc = new Scanner(System.in);
-        for (int i = 0; i < NUMBER_OF_PLAYERS; i++) {
+    private static Player[] createPlayers(Scanner sc) {
+        Player[] players = new Player[MAX_PLAYERS];
+        for (int i = 0; i < MAX_PLAYERS; i++) {
             System.out.printf("Введите имя %d-ого игрока: ", i + 1);
             players[i] = new Player(sc.next());
         }
+        return players;
     }
 }
