@@ -69,7 +69,6 @@ class GuessNumber {
         int number = player.getNumber();
 
         if (number == hiddenNumber) {
-
             player.incScore();
             System.out.println("Игрок " + player.getName() + " угадал число " + hiddenNumber +
                     " c " + (player.getAttempts()) + " попытки");
