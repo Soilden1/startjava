@@ -110,7 +110,11 @@ public class BookshelfTest {
 
     private static void showFindResult(int place, Bookshelf bs) {
         System.out.print("Результат поиска: ");
-        showBook(bs.getBooks()[place].getTitle(), bs);
+        if (place >= 0) {
+            showBook(bs.getBooks()[place].getTitle(), bs);
+        } else {
+            System.out.print("книга не найдена");
+        }
         System.out.println();
     }
 
