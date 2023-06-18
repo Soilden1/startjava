@@ -1,7 +1,6 @@
 package com.startjava.graduation.bookshelf;
 
 import java.util.Arrays;
-import java.util.Scanner;
 
 public class Bookshelf {
 
@@ -9,24 +8,17 @@ public class Bookshelf {
     private final Book[] books = new Book[CAPACITY];
     private int countBooks;
 
-    public void add() throws IndexOutOfBoundsException {
+    public void add(String inputBook) throws IndexOutOfBoundsException {
         if (countBooks >= CAPACITY) {
             System.out.println("Ошибка: в шкафу закончились свободные полки");
         } else {
-            Scanner sc = new Scanner(System.in);
-            System.out.println("Введите книгу в формате 'Имя автора, название книги, год издания'");
-
-            String[] string = sc.nextLine().split(", ");
+            String[] string = inputBook.split(", ");
             Book book = new Book(string[0], string[1], Integer.parseInt(string[2]));
             books[countBooks++] = book;
         }
     }
 
-    public int find() {
-        Scanner sc = new Scanner(System.in);
-        System.out.print("Введите название книги: ");
-        String title = sc.nextLine();
-
+    public int find(String title) {
         for (int i = 0; i < countBooks; i++) {
             if (title.equals(books[i].getTitle())) {
                 return i;
@@ -35,17 +27,14 @@ public class Bookshelf {
         return -1;
     }
 
-    public void delete(int bookPlace) {
-        if (bookPlace >= 0) {
-            System.arraycopy(books, bookPlace + 1, books, bookPlace, countBooks - bookPlace - 1);
-            countBooks--;
-        } else {
-            System.out.println("Ошибка: книга не найдена");
-        }
+    public void delete(String title) {
+        int bookPlace = find(title);
+        System.arraycopy(books, bookPlace + 1, books, bookPlace, countBooks - bookPlace - 1);
+        countBooks--;
     }
 
-    public Book getBook(int place) {
-        return books[place];
+    public Book getBook(String title) {
+        return books[find(title)];
     }
 
     public void clear() {
