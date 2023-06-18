@@ -4,7 +4,6 @@ import java.util.Scanner;
 
 public class BookshelfTest {
 
-    private static final int SERVICE_LENGTH = 4;
     private static int shelfLength;
 
     public static void main(String[] args) {
@@ -16,18 +15,18 @@ public class BookshelfTest {
     }
 
     private static void showBookshelf(Bookshelf bs) {
-        int shelfFullness = bs.getShelfFullness();
+        int shelfFullness = bs.getCountBooks();
         if (shelfFullness == 0) {
             System.out.println("Шкаф пуст. Вы можете добавить в него первую книгу");
         } else {
-            System.out.printf("В шкафу %d книг и свободно %d полок%n%n", bs.getShelfFullness(), bs.getFreeShelves());
+            System.out.printf("В шкафу %d книг и свободно %d полок%n%n", bs.getCountBooks(), bs.getFreeShelves());
             for (int i = 0; i < shelfFullness; i++) {
                 System.out.print("|");
                 showBook(i, bs);
                 System.out.println("|");
-                System.out.println("|" + "-".repeat(shelfLength + SERVICE_LENGTH) + "|");
-                if (i == shelfFullness - 1 && shelfFullness < Bookshelf.MAX_BOOKS) {
-                    System.out.println("|" + " ".repeat(shelfLength + SERVICE_LENGTH) + "|");
+                System.out.println("|" + "-".repeat(shelfLength) + "|");
+                if (i == shelfFullness - 1 && shelfFullness < Bookshelf.CAPACITY) {
+                    System.out.println("|" + " ".repeat(shelfLength) + "|");
                 }
             }
         }
@@ -59,7 +58,7 @@ public class BookshelfTest {
             case "add" -> {
                 try {
                     bs.add();
-                    int length = bs.getBook(bs.getShelfFullness() - 1).getLength();
+                    int length = bs.getBook(bs.getCountBooks() - 1).getLength();
                     if (length > shelfLength) {
                         shelfLength = length;
                     }
