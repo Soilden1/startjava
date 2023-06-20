@@ -7,10 +7,10 @@ public class Book {
     private final int publishYear;
     private final int length;
 
-    public Book(String author, String title, int publishingYear) {
+    public Book(String author, String title, int publishYear) {
         this.author = author;
         this.title = title;
-        this.publishYear = publishingYear;
+        this.publishYear = publishYear;
         this.length = toString().length();
     }
 
