@@ -4,8 +4,6 @@ import java.util.Scanner;
 
 public class BookshelfTest {
 
-    private static int shelfLength;
-
     public static void main(String[] args) {
         Bookshelf bs = new Bookshelf();
         do {
@@ -21,24 +19,12 @@ public class BookshelfTest {
         } else {
             System.out.printf("В шкафу %d книг и свободно %d полок%n%n", bs.getCountBooks(), bs.getFreeShelves());
             for (Book book : bs.getBooks()) {
-                System.out.print("|");
                 showBook(book.getTitle(), bs);
-                System.out.println("|");
-                System.out.println("|" + "-".repeat(shelfLength) + "|");
-                if (book.getLength() == shelfFullness - 1 && shelfFullness < Bookshelf.CAPACITY) {
-                    System.out.println("|" + " ".repeat(shelfLength) + "|");
-                }
+                System.out.println("|" + "-".repeat(bs.getShelfLength()) + "|");
             }
-        }
-    }
-
-    private static void showBook(String title, Bookshelf bs) {
-        int place = bs.find(title);
-        if (place >= 0) {
-            Book book = bs.getBook(title);
-            System.out.print(book + " ".repeat(shelfLength - book.getLength()));
-        } else {
-            System.out.print("Книга не найдена");
+            if (shelfFullness < Bookshelf.CAPACITY) {
+                System.out.println("|" + " ".repeat(bs.getShelfLength()) + "|");
+            }
         }
     }
 
@@ -56,36 +42,10 @@ public class BookshelfTest {
     private static boolean isLaunch(Bookshelf bs) {
         Scanner sc = new Scanner(System.in);
         switch (sc.nextLine()) {
-            case "add" -> {
-                String book = inputBook(sc);
-                try {
-                    bs.add(book);
-                    int length = book.length();
-                    if (length > shelfLength) {
-                        shelfLength = length;
-                    }
-                } catch (IndexOutOfBoundsException e) {
-                    System.out.println("Ошибка: невалидный формат");
-                }
-            }
+            case "add" -> bs.add(inputBookInfo(sc));
             case "find" -> showFindResult(bs.find(inputTitle(sc)), bs);
-            case "delete" -> {
-                String title = inputTitle(sc);
-                int bookPlace = bs.find(title);
-                if (bookPlace >= 0) {
-                    int length = bs.getBook(title).getLength();
-                    bs.delete(title);
-                    if (length == shelfLength) {
-                        calculateLength(bs);
-                    }
-                } else {
-                    System.out.println("Ошибка: книга не найдена");
-                }
-            }
-            case "clear" -> {
-                bs.clear();
-                shelfLength = 0;
-            }
+            case "delete" -> bs.delete(inputTitle(sc));
+            case "clear" -> bs.clear();
             case "quit" -> {return false;}
             default -> {
                 System.out.println("Ошибка: такой функции не существует");
@@ -98,7 +58,7 @@ public class BookshelfTest {
         return true;
     }
 
-    private static String inputBook(Scanner sc) {
+    private static String inputBookInfo(Scanner sc) {
         System.out.println("Введите книгу в формате 'Имя автора, название книги, год издания'");
         return sc.nextLine();
     }
@@ -111,20 +71,20 @@ public class BookshelfTest {
     private static void showFindResult(int place, Bookshelf bs) {
         System.out.print("Результат поиска: ");
         if (place >= 0) {
-            showBook(bs.getBooks()[place].getTitle(), bs);
+            System.out.print(bs.getBooks()[place]);
         } else {
             System.out.print("книга не найдена");
         }
         System.out.println();
     }
 
-    private static void calculateLength(Bookshelf bs) {
-        shelfLength = 0;
-        for (Book book : bs.getBooks()) {
-            int length = book.getLength();
-            if (length > shelfLength) {
-                shelfLength = length;
-            }
+    private static void showBook(String title, Bookshelf bs) {
+        int place = bs.find(title);
+        if (place >= 0) {
+            Book book = bs.getBook(title);
+            System.out.println("|" + book + " ".repeat(bs.getShelfLength() - book.getLength()) + "|");
+        } else {
+            System.out.print("Книга не найдена");
         }
     }
 }
