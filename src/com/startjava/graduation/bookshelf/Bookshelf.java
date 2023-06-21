@@ -4,69 +4,22 @@ import java.util.Arrays;
 
 public class Bookshelf {
 
-    public static final int CAPACITY = 3;
+    public static final int CAPACITY = 10;
+    private static final int INFO_CAPACITY = 3;
     private final Book[] books = new Book[CAPACITY];
     private int countBooks;
     public int shelfLength;
 
-    public void add(String inputBookInfo) {
-        String[] bookInfo = inputBookInfo.split(", ");
-
-        if (countBooks >= CAPACITY) {
-            System.out.println("Ошибка: в шкафу закончились свободные полки");
-        } else if (bookInfo.length == 3) {
-            try {
-                Book book = new Book(bookInfo[0], bookInfo[1], Integer.parseInt(bookInfo[2]));
-                books[countBooks++] = book;
-
-                int length = inputBookInfo.length();
-                if (length > shelfLength) {
-                    shelfLength = length;
-                }
-            } catch (NumberFormatException e) {
-                System.out.println("Ошибка: невалидный формат");
-            }
-        } else {
-            System.out.println("Ошибка: необходимо ввести три пункта");
-        }
-    }
-
-    public int find(String title) {
-        for (int i = 0; i < countBooks; i++) {
-            if (title.equals(books[i].getTitle())) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
-    public void delete(String title) {
-        int bookPlace = find(title);
-        if (bookPlace < 0) {
-            System.out.println("Ошибка: книга не найдена");
-        } else {
-            int length = books[bookPlace].getLength();
-            System.arraycopy(books, bookPlace + 1, books, bookPlace, countBooks - bookPlace - 1);
-            countBooks--;
-
-            if (length == shelfLength) {
-                calculateLength();
-            }
-        }
+    public Book[] getBooks() {
+        return Arrays.copyOf(books, countBooks);
     }
 
     public Book getBook(String title) {
-        return books[find(title)];
-    }
-
-    public void clear() {
-        Arrays.fill(books, 0, countBooks, null);
-        countBooks = 0;
-        shelfLength = 0;
-    }
-
-    public Book[] getBooks() {
-        return Arrays.copyOf(books, countBooks);
+        int place = findPlace(title);
+        if (place >= 0) {
+            return books[place];
+        }
+        return null;
     }
 
     public int getCountBooks() {
@@ -81,13 +34,64 @@ public class Bookshelf {
         return shelfLength;
     }
 
+    public void add(String inputBookInfo) {
+        String[] bookInfo = inputBookInfo.split(", ");
+        if (countBooks >= CAPACITY) {
+            System.out.println("Ошибка: в шкафу закончились свободные полки");
+        } else if (bookInfo.length == INFO_CAPACITY) {
+            Book book = null;
+            try {
+                book = new Book(bookInfo[0], bookInfo[1], Integer.parseInt(bookInfo[2]));
+            } catch (NumberFormatException e) {
+                System.out.println("Ошибка: невалидный формат");
+            }
+            if (book != null) {
+                books[countBooks++] = book;
+                increaseLength(inputBookInfo.length());
+            }
+        } else {
+            System.out.println("Ошибка: необходимо вводить данные в формате: 'Имя автора, название книги, год издания'");
+        }
+    }
+
+    public void delete(String title) {
+        int bookPlace = findPlace(title);
+        if (bookPlace < 0) {
+            System.out.println("Ошибка: книга не найдена");
+        } else {
+            int length = books[bookPlace].getLength();
+            System.arraycopy(books, bookPlace + 1, books, bookPlace, countBooks-- - bookPlace - 1);
+            if (length == shelfLength) {
+                calculateLength();
+            }
+        }
+    }
+
+    public void clear() {
+        Arrays.fill(books, 0, countBooks, null);
+        countBooks = 0;
+        shelfLength = 0;
+    }
+
+    private int findPlace(String title) {
+        for (int i = 0; i < countBooks; i++) {
+            if (title.equals(books[i].getTitle())) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     private void calculateLength() {
         shelfLength = 0;
         for (int i = 0; i < countBooks; i++) {
-            int length = books[i].getLength();
-            if (length > shelfLength) {
-                shelfLength = length;
-            }
+            increaseLength(books[i].getLength());
+        }
+    }
+
+    private void increaseLength(int length) {
+        if (length > shelfLength) {
+            shelfLength = length;
         }
     }
 }
