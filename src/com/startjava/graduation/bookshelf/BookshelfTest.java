@@ -13,24 +13,19 @@ public class BookshelfTest {
     }
 
     private static void showBookshelf(Bookshelf bs) {
-        int shelfFullness = bs.getCountBooks();
-        if (shelfFullness == 0) {
+        int countBooks = bs.getCountBooks();
+        if (countBooks == 0) {
             System.out.println("Шкаф пуст. Вы можете добавить в него первую книгу");
         } else {
-            System.out.printf("В шкафу %d книг и свободно %d полок%n%n", bs.getCountBooks(), bs.getFreeShelves());
+            System.out.printf("В шкафу %d книг и свободно %d полок%n%n", countBooks, bs.getFreeShelves());
             for (Book book : bs.getBooks()) {
-                showBook(book.getTitle(), bs);
+                System.out.println("|" + book + " ".repeat(bs.getShelfLength() - book.getLength()) + "|");
                 System.out.println("|" + "-".repeat(bs.getShelfLength()) + "|");
             }
-            if (shelfFullness < Bookshelf.CAPACITY) {
+            if (countBooks < Bookshelf.CAPACITY) {
                 System.out.println("|" + " ".repeat(bs.getShelfLength()) + "|");
             }
         }
-    }
-
-    private static void showBook(String title, Bookshelf bs) {
-        Book book = bs.getBook(title);
-        System.out.println("|" + book + " ".repeat(bs.getShelfLength() - book.getLength()) + "|");
     }
 
     private static void showMenu() {
@@ -47,9 +42,9 @@ public class BookshelfTest {
     private static boolean isLaunch(Bookshelf bs) {
         Scanner sc = new Scanner(System.in);
         switch (sc.nextLine()) {
-            case "add" -> bs.add(inputBookInfo(sc));
-            case "find" -> showFindResult(inputTitle(sc), bs);
-            case "delete" -> bs.delete(inputTitle(sc));
+            case "add" -> add(sc, bs);
+            case "find" -> find(sc, bs);
+            case "delete" -> delete(sc, bs);
             case "clear" -> bs.clear();
             case "quit" -> {return false;}
             default -> {
@@ -63,24 +58,22 @@ public class BookshelfTest {
         return true;
     }
 
-    private static String inputBookInfo(Scanner sc) {
+    private static void add(Scanner sc, Bookshelf bs) {
         System.out.println("Введите книгу в формате 'Имя автора, название книги, год издания'");
-        return sc.nextLine();
+        bs.add(sc.nextLine());
     }
 
-    private static String inputTitle(Scanner sc) {
+    private static void delete(Scanner sc, Bookshelf bs) {
         System.out.print("Введите название книги: ");
-        return sc.nextLine();
+        bs.delete(sc.nextLine());
     }
 
-    private static void showFindResult(String title, Bookshelf bs) {
+    private static void find(Scanner sc, Bookshelf bs) {
+        System.out.print("Введите название книги: ");
+        Book book = bs.getBook(sc.nextLine());
+
         System.out.print("Результат поиска: ");
-        Book book = bs.getBook(title);
-        if (book == null) {
-            System.out.print("Книга не найдена");
-        } else {
-            System.out.print(book);
-        }
+        System.out.print(book == null ? "Книга не найдена" : book);
         System.out.println();
     }
 }
