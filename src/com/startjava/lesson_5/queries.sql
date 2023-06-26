@@ -1,48 +1,48 @@
---Р’С‹РІРѕРґРёРј РІСЃСЋ С‚Р°Р±Р»РёС†Сѓ
+\echo --Выводим всю таблицу
 SELECT * 
   FROM jaeger;
 
---РћС‚РѕР±СЂР°Р¶Р°РµРј С‚РѕР»СЊРєРѕ РЅРµ СѓРЅРёС‡С‚РѕР¶РµРЅРЅС‹С… СЂРѕР±РѕС‚РѕРІ
+\echo --Отображаем только не уничтоженных роботов
 SELECT * 
   FROM jaeger 
- WHERE NOT status = 'Destroyed';
+ WHERE status != 'Destroyed';
 
---РћС‚РѕР±СЂР°Р¶Р°РµРј СЂРѕР±РѕС‚РѕРІ РЅРµСЃРєРѕР»СЊРєРёС… СЃРµСЂРёР№: Mark-1 Рё Mark-4
+\echo --Отображаем роботов нескольких серий: Mark-1 и Mark-4
 SELECT * 
   FROM jaeger 
  WHERE mark IN ('Mark-1', 'Mark-4');
 
---РћС‚РѕР±СЂР°Р¶Р°РµРј РІСЃРµС… СЂРѕР±РѕС‚РѕРІ, РєСЂРѕРјРµ Mark-1 Рё Mark-4
+\echo --Отображаем всех роботов, кроме Mark-1 и Mark-4
 SELECT * 
   FROM jaeger 
- WHERE NOT mark IN ('Mark-1', 'Mark-4');
+ WHERE mark NOT IN ('Mark-1', 'Mark-4');
 
---РЎРѕСЂС‚РёСЂСѓРµРј С‚Р°Р±Р»РёС†Сѓ РїРѕ СѓР±С‹РІР°РЅРёСЋ РїРѕ СЃС‚РѕР»Р±С†Сѓ mark
+\echo --Сортируем таблицу по убыванию по столбцу mark
 SELECT * 
   FROM jaeger 
  ORDER BY mark DESC;
 
---РћС‚РѕР±СЂР°Р¶Р°РµРј РёРЅС„РѕСЂРјР°С†РёСЋ Рѕ СЃР°РјРѕРј СЃС‚Р°СЂРѕРј СЂРѕР±РѕС‚Рµ
+\echo --Отображаем информацию о самом старом роботе
 SELECT * 
   FROM jaeger 
  WHERE launch = (SELECT MIN(launch) 
                    FROM jaeger);
 
---РћС‚РѕР±СЂР°Р¶Р°РµРј СЂРѕР±РѕС‚РѕРІ, РєРѕС‚РѕСЂС‹Рµ СѓРЅРёС‡С‚РѕР¶РёР»Рё Р±РѕР»СЊС€Рµ РІСЃРµС… kaiju
+\echo --Отображаем роботов, которые уничтожили больше всех kaiju
 SELECT * 
   FROM jaeger 
  ORDER BY kaiju_kill DESC LIMIT 3;
 
---РћС‚РѕР±СЂР°Р¶Р°РµРј СЃСЂРµРґРЅРёР№ РІРµСЃ СЂРѕР±РѕС‚РѕРІ
-SELECT AVG(weight) AS  average_weight
+\echo --Отображаем средний вес роботов
+SELECT AVG(weight) AS average_weight
   FROM jaeger;
 
---РЈРІРµР»РёС‡РёРІР°РµРј РЅР° РµРґРёРЅРёС†Сѓ РєРѕР»РёС‡РµСЃС‚РІРѕ СѓРЅРёС‡С‚РѕР¶РµРЅРЅС‹С… kaiju Сѓ СЂРѕР±РѕС‚РѕРІ, РєРѕС‚РѕСЂС‹Рµ РґРѕ СЃРёС… РїРѕСЂ РЅРµ СЂР°Р·СЂСѓС€РµРЅС‹
+\echo --Увеличиваем на единицу количество уничтоженных kaiju у роботов, которые до сих пор не разрушены
 UPDATE jaeger 
    SET kaiju_kill = kaiju_kill + 1 
- WHERE NOT status = 'Destroyed';
+ WHERE status != 'Destroyed';
 
---РЈРґР°Р»СЏРµРј СѓРЅРёС‡С‚РѕР¶РµРЅРЅС‹С… СЂРѕР±РѕС‚РѕРІ
+\echo --Удаляем уничтоженных роботов
 DELETE 
   FROM jaeger 
  WHERE status = 'Destroyed';

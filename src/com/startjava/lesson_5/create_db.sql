@@ -15,5 +15,5 @@ CREATE TABLE jaeger (
     launch DATE,
     kaiju_kill INTEGER);
 
-\ir ../scripts/init_db.sql
-\ir ../scripts/queries.sql
+\ir init_db.sql
+\ir queries.sql
