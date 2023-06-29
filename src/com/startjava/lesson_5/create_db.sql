@@ -13,7 +13,8 @@ CREATE TABLE jaeger (
     status TEXT,
     origin TEXT,
     launch DATE,
-    kaiju_kill INTEGER);
+    kaiju_kill INTEGER)
+;
 
 \ir init_db.sql
 \ir queries.sql
